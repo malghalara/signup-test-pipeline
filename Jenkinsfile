@@ -2,15 +2,16 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Repo') {
+        stage('Clone Test Repo') {
             steps {
-                git 'https://github.com/malghalara/signup.git'
+                git 'https://github.com/malghalara/signup-test-pipeline.git'
             }
         }
 
         stage('Run Selenium Tests') {
             steps {
                 script {
+                    // Assuming Dockerfile is in root of cloned repo
                     sh 'docker build -t signup-tests .'
                     sh 'docker run --rm signup-tests'
                 }
