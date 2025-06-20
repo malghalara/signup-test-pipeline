@@ -10,11 +10,9 @@ pipeline {
 
         stage('Run Selenium Tests') {
             steps {
-                dir('test-pipeline') {
-                    script {
-                        sh 'docker build -t signup-tests .'
-                        sh 'docker run --rm signup-tests'
-                    }
+                script {
+                    sh 'docker build -t signup-tests .'
+                    sh 'docker run --rm signup-tests'
                 }
             }
         }
