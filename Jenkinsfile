@@ -2,17 +2,17 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Test Repo') {
+        stage('Clone App Repo') {
             steps {
-                git 'https://github.com/malghalara/signup-test-pipeline.git'
+                git url: 'https://github.com/malghalara/signup.git', changelog: false, poll: false
             }
         }
 
-        stage('Run Selenium Tests') {
+        stage('Build and Run Selenium Tests') {
             steps {
                 script {
-                    // Assuming Dockerfile is in root of cloned repo
-                    sh 'docker build -t signup-tests .'
+                    // Move into the test repo directory if needed
+                    sh 'docker build -t signup-tests https://github.com/malghalara/signup-test-pipeline.git#master'
                     sh 'docker run --rm signup-tests'
                 }
             }
